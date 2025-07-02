@@ -71,5 +71,74 @@ What i do:
 ### ✅ 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/blood-test-analyzer.git
+git clone https://github.com/agathees24/blood-test-analyser.git
 cd blood-test-analyzer
+```
+### ✅ 2. Create and Activate Python Environment
+```bash
+conda create -n blood python=3.10
+conda activate blood
+pip install -r requirements.txt
+```
+
+### ✅ 3. Install & Start Docker
+If you haven’t already:
+
+Download: https://www.docker.com/products/docker-desktop/
+
+Start Docker from system tray
+
+after install run below code in same project directory 
+```bash
+docker run -d --name redis-server -p 6379:6379 redis
+```
+Then run
+```bash
+docker start redis-server
+```
+
+
+### ✅ 4. Open .env file add API keys
+```bash
+OPENAI_API_KEY=your_openai_key
+OPENAI_MODEL_NAME=gpt-4o
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_KEY=your_anon_or_service_role_key
+```
+
+You can get API keys from:
+
+OpenAI API Keys https://platform.openai.com/api-keys
+
+Supabase Project → Project Settings → API
+https://supabase.com/  
+
+
+Structure for supabase DB creation
+| Column Name           | Type                   | Description                                                       |
+| --------------------- | ---------------------- | ----------------------------------------------------------------- |
+| `id`                  | `int` (auto-increment) | Primary key, uniquely identifies each report                      |
+| `filename`            | `text`                 | The original name of the uploaded PDF or TXT file                 |
+| `query`               | `text`                 | The user-provided query (e.g., "Summarize my blood test report")  |
+| `medical_result`      | `text`                 | AI-generated summary from the doctor/medical agent                |
+| `nutrition_result`    | `text`                 | AI-generated advice from the nutritionist agent                   |
+| `exercise_result`     | `text`                 | Personalized exercise plan from the fitness agent                 |
+| `verification_result` | `text`                 | Result from the verification agent checking the file type/content |
+| `created_at`          | `timestamp` (optional) | Timestamp of when the report was saved                            |
+
+---
+
+✅ 5. Run All Services
+```bash
+python run_all.py
+```
+
+This will automatically:
+
+Spin up Redis server using Docker
+
+Launch Celery background worker
+
+Start FastAPI at http://localhost:8000
+
+Start Streamlit Dashboard at http://localhost:8501

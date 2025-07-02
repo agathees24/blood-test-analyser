@@ -1,0 +1,8 @@
+- Confirmation: The file is a valid blood test report.
+- File type: PDF
+- Document title: Blood Test Report
+- Complete content: 
+  Patient: John Doe 
+  Hemoglobin: 14.5 g/dL 
+  Glucose: 90 mg/dL 
+  Cholesterol: 200 mg/dL

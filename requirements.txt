@@ -1,0 +1,40 @@
+# 📦 Core
+fastapi
+uvicorn
+requests
+pydantic
+python-multipart
+python-dotenv
+
+# 🌐 Supabase Client
+supabase
+
+# 🎯 CrewAI & Tools
+crewai
+crewai-tools
+
+# ⚙️ Background Task Engine
+celery
+redis  # Python Redis client
+
+# 🧪 Streamlit Dashboard
+streamlit
+pandas
+
+# 🧾 PDF Generation
+fpdf
+PyMuPDF  # or use `reportlab` or `pdfplumber` as fallback
+
+# 📄 File parsing and handling
+pdfminer.six
+pdfplumber
+
+# 🐳 Docker SDK (for automation scripts, optional)
+docker
+
+# 👇 Optional (for Unicode PDF safety, emoji issues)
+unidecode
+
+# If using OpenAI or LangChain
+openai
+langchain

@@ -165,4 +165,121 @@ Use dropdown to filter by query type
 All processed results are stored to Supabase for reuse.
 
 ---
+## API Documentation
 
+The system exposes a RESTful API built with FastAPI, enabling external access to blood report analysis features.
+
+### 🌐 Base URL
+```bash
+http://localhost:8000/
+```
+
+### 🔍 1. GET /
+Description:  
+Health check endpoint to verify the API is up and running.
+
+Request:
+```bash
+GET /
+```
+
+Response:
+```bash
+{
+  "message": "Blood Test Report Analyzer API is running"
+}
+```
+
+### 🧪 2. POST /analyze
+Description:  
+Accepts a PDF or TXT blood report file and a query from the user, then queues the file for analysis using Celery background workers.
+
+Request:
+```bash
+POST /analyze
+Content-Type: multipart/form-data
+```
+
+Form Data:
+| Field   | Type     | Description                                           |
+| ------- | -------- | ----------------------------------------------------- |
+| `file`  | `file`   | The blood report file (PDF or TXT only)               |
+| `query` | `string` | Optional. Default: `"Summarize my blood test report"` |
+
+
+Example (using curl):
+```bash
+curl -X POST http://localhost:8000/analyze \
+  -F "file=@sample.pdf" \
+  -F "query=Summarize my blood test report"
+```
+
+Success Response:
+```bash
+{
+  "status": "queued",
+  "task_id": "74cbbdbf-xxxx-xxxx-xxxx-8cc2e507f9a6",
+  "message": "Your report is being processed in the background."
+}
+```
+
+Error Response (Invalid File):
+```bash
+{
+  "detail": "Only PDF and TXT files are supported."
+}
+```
+
+⏳ 3. GET /status/{task_id}
+Description:  
+Fetches the current processing status of a submitted analysis request using the task ID returned from /analyze.
+
+Request:
+```bash
+GET /status/74cbbdbf-xxxx-xxxx-xxxx-8cc2e507f9a6
+```
+
+Success Response (While Processing):
+```bash
+{
+  "status": "Processing"
+}
+```
+
+Success Response (Completed):
+```bash
+{
+  "status": "Completed",
+  "result": "The completed analysis summary..."
+}
+```
+
+Error Response (Failed Task):
+```bash
+{
+  "status": "Failed",
+  "error": "Error reading PDF file"
+}
+```
+
+---
+## 🧠 Tech Stack
+
+| Purpose        | Tech Used                           |
+| -------------- | ----------------------------------- |
+| Core AI Agents | `CrewAI`, `LangChain`, `OpenAI GPT` |
+| Frontend       | `Streamlit`                         |
+| Backend API    | `FastAPI`                           |
+| Async Queue    | `Celery` + `Redis`                  |
+| Database       | `Supabase`                          |
+| PDF Generator  | `FPDF`                              |
+| File Parsing   | `PDFMiner`, `os`, `uuid`            |
+
+---
+## 👨‍💻 Created by Agatheeswaran R
+
+Email: agathees2401@gmail.com  
+
+GitHub: @agathees24  
+
+LinkedIn: https://www.linkedin.com/in/agatheeswaran/

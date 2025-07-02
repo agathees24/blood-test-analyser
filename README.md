@@ -12,7 +12,7 @@ The system allows users (patients, doctors, or labs) to upload .pdf or .txt repo
 
 ---
 
-What i do:  
+What i done:  
 ✅ Intelligent report interpretation using multiple AI agents (Doctor, Nutritionist, Fitness Coach, Verifier)  
 ✅ FastAPI backend for secure file uploads and task orchestration  
 ✅ Streamlit dashboard for interactive UI and real-time result visualization      
@@ -142,3 +142,27 @@ Launch Celery background worker
 Start FastAPI at http://localhost:8000
 
 Start Streamlit Dashboard at http://localhost:8501
+
+---
+## 🚀 Usage Instructions
+
+1.Open browser at http://localhost:8501  
+
+Upload your blood test PDF/TXT  
+
+Enter your query (or keep default)  
+
+Click "🚀 Run Analysis"  
+
+See live progress bar as AI agents analyze  
+
+After completion, click Refresh  
+
+View results + download PDF  
+
+Use dropdown to filter by query type  
+
+All processed results are stored to Supabase for reuse.
+
+---
+
